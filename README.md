@@ -60,30 +60,13 @@ go build
 | `↓` / `j` | Scroll down |
 | `←` / `h` | Previous column |
 | `→` / `l` | Next column |
-| `+` / `=` | Volume up |
-| `-` / `_` | Volume down |
 | `m` | Toggle mute |
 | `q` | Quit |
 
 ### Interface Layout
 
-```
-  SCANNING...                                    ██   ███     █████
-                                                 ██ █  █ █     █ █ █
-                                                 ██   ███  █  █████
-                                                 ██     █     █   █
-                                                 ██   ███     █   █
+<img width="1012" height="759" alt="image" src="https://github.com/user-attachments/assets/f9206f5b-b377-42c9-ae25-8976b262f98f" />
 
-╭─ Countries ──────────╮╭─ Genre ──────────────╮╭─ Station ────────────╮
-│     Germany          ││       Pop            ││   Radio Paradise     │
-│     France           ││       Hip-Hop        ││   SomaFM Groove      │
-│┌───────────────────┐ ││ ┌──────────────────┐ ││ ┌──────────────────┐ │
-││ The United States ││ ││      Rock         │ ││   KEXP 90.3 FM    │ │
-│└───────────────────┘ ││ └──────────────────┘ ││ └──────────────────┘ │
-│     Australia        ││       Electronic     ││   BBC Radio 1        │
-│     Japan            ││       Jazz           ││   NTS Radio          │
-╰──────────────────────╯╰──────────────────────╯╰──────────────────────╯
-```
 
 ## How It Works
 
