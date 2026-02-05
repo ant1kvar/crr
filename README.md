@@ -2,6 +2,9 @@
 
 A vintage-style terminal radio station selector with a three-drum interface. Browse stations by country and genre, enjoy smooth transitions with audio chunks, and experience the nostalgic feel of old-school radio tuning.
 
+### Interface Layout
+<img width="1012" height="759" alt="image" src="https://github.com/user-attachments/assets/f9206f5b-b377-42c9-ae25-8976b262f98f" />
+
 ![Cool Retro Radio](https://img.shields.io/badge/TUI-Bubble%20Tea-ff69b4)
 ![Go](https://img.shields.io/badge/Go-1.21+-00ADD8)
 ![License](https://img.shields.io/badge/License-MIT-green)
@@ -62,11 +65,6 @@ go build
 | `→` / `l` | Next column |
 | `m` | Toggle mute |
 | `q` | Quit |
-
-### Interface Layout
-
-<img width="1012" height="759" alt="image" src="https://github.com/user-attachments/assets/f9206f5b-b377-42c9-ae25-8976b262f98f" />
-
 
 ## How It Works
 
