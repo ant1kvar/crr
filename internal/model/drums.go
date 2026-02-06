@@ -60,6 +60,12 @@ func NewDrums() *Drums {
 	genre := Drum{data.Genre, 0, "Genre"}
 	station := Drum{[]string{"Loading..."}, 0, "Station"}
 
+	// Extract embedded chunks to temp directory
+	chunksDir, err := player.ExtractChunks()
+	if err != nil {
+		chunksDir = "chunks" // Fallback to local directory
+	}
+
 	return &Drums{
 		List:    [3]Drum{countries, genre, station},
 		Active:  0,
@@ -67,7 +73,7 @@ func NewDrums() *Drums {
 		Volume:  NewVolume(),
 		Clock:   NewClock(),
 		Loading: true,
-		Player:  player.New("chunks"),
+		Player:  player.New(chunksDir),
 	}
 }
 

@@ -1,0 +1,22 @@
+# Binaries
+crr
+crr-*
+*.exe
+
+# macOS
+.DS_Store
+.claude/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Temp
+*.log
+*.tmp
+
+# Demo output
+demo.gif
+demo.mp4

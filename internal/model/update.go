@@ -4,6 +4,7 @@ import (
 	tea "github.com/charmbracelet/bubbletea"
 
 	"crr/internal/logger"
+	"crr/internal/player"
 )
 
 // Update handles events (required by tea.Model interface)
@@ -86,6 +87,7 @@ func (d Drums) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			if d.Player != nil {
 				d.Player.Cleanup()
 			}
+			player.CleanupChunks()
 			return d, tea.Quit
 
 		// Drum navigation

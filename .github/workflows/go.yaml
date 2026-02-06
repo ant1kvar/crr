@@ -1,8 +1,9 @@
-name: Build
+name: Build and Release
 
 on:
   push:
     branches: [ main ]
+    tags: [ 'v*' ]
   pull_request:
     branches: [ main ]
 
@@ -31,21 +32,33 @@ jobs:
         GOARCH: ${{ matrix.goarch }}
       run: |
         if [ "$GOOS" = "windows" ]; then
-          go build -o crr-${{ matrix.goos }}-${{ matrix.goarch }}.exe
+          go build -ldflags="-s -w" -o crr-${{ matrix.goos }}-${{ matrix.goarch }}.exe
         else
-          go build -o crr-${{ matrix.goos }}-${{ matrix.goarch }}
+          go build -ldflags="-s -w" -o crr-${{ matrix.goos }}-${{ matrix.goarch }}
+        fi
+
+    - name: Compress binary
+      run: |
+        if [ "${{ matrix.goos }}" = "windows" ]; then
+          zip crr-${{ matrix.goos }}-${{ matrix.goarch }}.zip crr-${{ matrix.goos }}-${{ matrix.goarch }}.exe
+        else
+          tar -czvf crr-${{ matrix.goos }}-${{ matrix.goarch }}.tar.gz crr-${{ matrix.goos }}-${{ matrix.goarch }}
         fi
 
     - name: Upload artifact
       uses: actions/upload-artifact@v4
       with:
         name: crr-${{ matrix.goos }}-${{ matrix.goarch }}
-        path: crr-${{ matrix.goos }}-${{ matrix.goarch }}*
+        path: |
+          crr-${{ matrix.goos }}-${{ matrix.goarch }}.tar.gz
+          crr-${{ matrix.goos }}-${{ matrix.goarch }}.zip
 
   release:
     needs: build
     runs-on: ubuntu-latest
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    if: startsWith(github.ref, 'refs/tags/v')
+    permissions:
+      contents: write
 
     steps:
     - name: Download all artifacts
@@ -53,5 +66,16 @@ jobs:
       with:
         path: dist
 
-    - name: Display structure
-      run: ls -la dist/
+    - name: Flatten artifacts
+      run: |
+        mkdir -p release
+        find dist -type f \( -name "*.tar.gz" -o -name "*.zip" \) -exec mv {} release/ \;
+        ls -la release/
+
+    - name: Create Release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: release/*
+        generate_release_notes: true
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
